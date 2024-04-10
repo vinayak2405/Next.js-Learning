@@ -1,8 +1,10 @@
-export default function HomePage() {
+import Heading from "@/components/Heading";
 
+export default function HomePage() {
+    console.log('[HomePage] rendering');
     return (
         <>
-            <h1>Indie Gamer</h1>
+            <Heading>Indie Gamer</Heading>
             <p>Only the best indie gamer, reviewed for you</p>
         </>
     );
