@@ -17,13 +17,24 @@ export default async function getReview(slug: string): Promise<Review> {
 }
 
 export async function getReviews(): Promise<Review[]> {
-  const files = await readdir('./content/reviews');
-  const slugs = files.filter((file) => file.endsWith('.md'))
-    .map((file) => file.slice(0, -'.md'.length));
+  const slugs = await getSlugs();
+
   const reviews: Review[] = [];
   for (const slug of slugs) {
     const review = await getReview(slug);
     reviews.push(review);
   }
+  reviews.sort((a, b) => b.date.localeCompare(a.date));
   return reviews;
+}
+
+export async function getSlugs(): Promise<string[]> {
+  const files = await readdir('./content/reviews');
+  return files.filter((file) => file.endsWith('.md'))
+    .map((file) => file.slice(0, -'.md'.length));
+}
+
+export async function getLatestReviews(): Promise<Review> {
+  const reviews = await getReviews();
+  return reviews[0];
 }
