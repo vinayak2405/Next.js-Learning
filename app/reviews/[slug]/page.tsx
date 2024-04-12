@@ -2,6 +2,7 @@ import { Metadata } from "next";
 import Back from "@/components/Back";
 import Heading from "@/components/Heading";
 import getReview, { getSlugs } from '@/lib/reviews';
+import ShareButtons from "@/components/ShareButtons";
 
 interface ReviewPageParams {
     slug: string;
@@ -28,7 +29,10 @@ export default async function ReviewPage({ params: { slug } }: ReviewPageProps) 
     return (
         <>
             <Heading>{review.title}</Heading>
-            <p className='italic pb-2'>{review.date}</p>
+            <div className="flex gap-3 items-baseline">
+                <p className='italic pb-2'>{review.date}</p>
+                <ShareButtons />
+            </div>
             <img src={review.image}
                 width="640" height="360" className='rounded-lg mb-2'
             />
